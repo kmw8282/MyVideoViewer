@@ -11,22 +11,37 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.minwoo.myvideoviewer.adapter.VideoAdapter
 import com.minwoo.myvideoviewer.databinding.ActivityMainBinding
+import com.minwoo.myvideoviewer.model.VideoModel
 import com.minwoo.myvideoviewer.viewmodel.VideoViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var activityMainBinding: ActivityMainBinding
-    lateinit var videoAdapter: VideoAdapter
+    lateinit var videoViewModel: VideoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
 
-        activityMainBinding.videoVideModel = VideoViewModel()
+        this.videoViewModel = VideoViewModel()
+        activityMainBinding.videoViewModel = this.videoViewModel
+
+        // 데이터를 만든다.
+        val arrayList = arrayListOf<VideoModel>()
+        arrayList.add(VideoModel("하이","테스트", null))
+
+        this.videoViewModel.getLiveVieoModel().observe(this) {
+            this.videoViewModel.getAdapter().submitList(arrayList) {
+
+            }
+        }
+
+        this.videoViewModel.setLiveVideoModel(arrayList)
+
 
         if (requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
             getAllVideoPath()
@@ -107,30 +122,5 @@ class MainActivity : AppCompatActivity() {
                 getAllVideoPath()
             }
         }
-    }
-
-    private fun fetchVideoInfo() {
-        /*// 비디오 경로들을 얻어온다.
-        val cursor: Cursor? = null
-
-        cursor.use { cursor ->
-            val array = arrayListOf<String>(MediaStore.Video.Media.DATA)
-            cursor = contentResolver.query()
-        }
-        VideoInfoExtractor.getVideoModel()*/
-    }
-
-    private fun initAdapter() {
-        videoAdapter = VideoAdapter()
-    }
-
-    private fun initRecyclerView() {
-
-        activityMainBinding.videoRecyclerView.apply {
-            adapter = videoAdapter
-            layoutManager = null
-        }
-
-
     }
 }

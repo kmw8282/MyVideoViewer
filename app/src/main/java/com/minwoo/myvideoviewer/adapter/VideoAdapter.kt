@@ -13,8 +13,7 @@ import com.minwoo.myvideoviewer.model.VideoModel
 class VideoAdapter : ListAdapter<VideoModel, VideoAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(private val itemVideoBinding: ItemVideoBinding) : RecyclerView.ViewHolder(itemVideoBinding.root) {
         fun bind(videoModel: VideoModel) {
-            itemVideoBinding.mainTitle.text = videoModel.title
-            itemVideoBinding.subTitle.text = videoModel.subTitle
+            itemVideoBinding.videoModel = videoModel
 
             Glide.with(itemVideoBinding.imgThumbNail.context)
                 .load(videoModel.thumbnailImageUrl)

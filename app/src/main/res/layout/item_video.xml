@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imgThumbNail"
-        android:layout_width="0dp"
-        android:layout_height="230dp"
-        tools:src="@drawable/ic_baseline_image_24"
-        tools:background="@color/purple_200"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+<layout
 
-    <TextView
-        android:id="@+id/mainTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imgThumbNail"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Big Buck Bunny"
-        android:textSize="22sp" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/subTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="By 을왕리 해수욕장" />
+    <data>
+
+        <import type="com.minwoo.myvideoviewer.model.VideoModel" />
+
+        <variable
+            name="videoModel"
+            type="VideoModel" />
+    </data>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 커스텀뷰를 만들어야 한다. -->
+        <ImageView
+            android:id="@+id/imgThumbNail"
+            android:layout_width="0dp"
+            android:layout_height="230dp"
+            android:src="@drawable/ic_baseline_image_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/purple_200"
+            tools:src="@drawable/ic_baseline_image_24" />
+
+        <TextView
+            android:layout_width="46dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/black"
+            android:gravity="center"
+            android:text="40:00"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/imgThumbNail"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="40:00" />
+
+        <TextView
+            android:id="@+id/mainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{videoModel.title}"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgThumbNail"
+            tools:text="Big Buck Bunny" />
+
+        <TextView
+            android:id="@+id/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{videoModel.subTitle}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainTitle"
+            tools:text="By 을왕리 해수욕장" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
